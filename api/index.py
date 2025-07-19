@@ -1,11 +1,9 @@
-from flask import Flask
+from flask import Flask, jsonify
+from scraper import run_scraper
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return 'Hello, World!'
-
-@app.route('/about')
-def about():
-    return 'About'
+@app.route("/run", methods=["GET"])
+def trigger_scraper():
+    result = run_scraper()
+    return jsonify({"message": "Scraper executed", "summary": result})
